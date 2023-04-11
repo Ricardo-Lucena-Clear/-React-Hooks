@@ -1,37 +1,58 @@
 import React, { useContext } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
+import SectionTitle from '../../components/layout/SectionTitle'
 import DataContext from '../../data/DataContext'
+import { appContext } from '../../data/Store'
 
 const UseContext = (props) => {
-
-    const context = useContext(DataContext)
-
+    const { state, setState } = useContext(DataContext)
     function addNumber(delta) {
-        context.setState({
-            ...context.state,
-            number: context.state.number + delta
+        setState({
+            ...state,
+            number: state.number + delta,
         })
     }
-
+    const { number, text, setNumber } = useContext(appContext)
     return (
         <div className="UseContext">
             <PageTitle
                 title="Hook UseContext"
-                subtitle="Aceita um objeto de contexto e retorna o valor atual do contexto!" />
-        <div className="center">
-            <span className="text">{context.state.text}</span>
-            <span className="text">{context.state.number}</span>
+                subtitle="Aceita um objeto de contexto e retorna o valor atual do contexto!"
+            />
 
-            <div>
-                <button className="btn"
-                onClick={() => addNumber(-1)}>-1</button>
-                <button className="btn"
-                onClick={() => addNumber(1)}>+1</button>
+            <SectionTitle title="Execício #01" />
+            <div className="center">
+                <span className="text">{state.text}</span>
+                <span className="text">{state.number}</span>
+
+                <div>
+                    <button className="btn" onClick={() => addNumber(-1)}>
+                        -1
+                    </button>
+                    <button className="btn" onClick={() => addNumber(1)}>
+                        +1
+                    </button>
+                </div>
             </div>
-        </div>
 
+            <SectionTitle title="Execício #02" />
+            <div className="center">
+                <span className="text">{text}</span>
+                <span className="text">{number}</span>
+                <div>
+                    <button
+                        className="btn"
+                        onClick={() => setNumber(number - 1)}>
+                        -1
+                    </button>
+                    <button
+                        className="btn"
+                        onClick={() => setNumber(number + 1)}>
+                        +1
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
-
 export default UseContext
